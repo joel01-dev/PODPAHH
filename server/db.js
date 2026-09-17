@@ -314,7 +314,7 @@ function importCatalog(catalogObj) {
 function getSettings() {
   const db = readDb();
   return {
-    whatsapp: db.settings.whatsapp || '554531977964',
+    whatsapp: db.settings.whatsapp || '5547999453628',
     whatsapp_message: db.settings.whatsapp_message || ''
   };
 }

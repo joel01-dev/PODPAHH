@@ -9,7 +9,7 @@
   /* ---------------- CONFIG ---------------- */
   var CFG = {
     // WhatsApp de checkout (55 + DDD + número, só dígitos)
-    whatsapp: '554531977964',
+    whatsapp: '5547999453628',
     pixDiscount: 0.10,        // 10% OFF no PIX
     maxQty: 99,
     ageKey: 'podpahh_age_ok',

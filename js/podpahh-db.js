@@ -94,7 +94,7 @@
         var json = await res.json();
         if (json.success) return json.data;
       } catch (err) { /* servidor offline: usa padrão */ }
-      return { whatsapp: '554531977964', whatsapp_message: '' };
+      return { whatsapp: '5547999453628', whatsapp_message: '' };
     }
   };
 
