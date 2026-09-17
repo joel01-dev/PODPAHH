@@ -6,7 +6,14 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+
+// Carrega variáveis de ambiente do .env — SECRET KEY fica aqui
+// dotenv instalado: usa path explícito para rodar de qualquer diretório.
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
 const db = require('./db');
+// Helpers Supabase (clientes server/public + diagnóstico). Opcional se não usar.
+const supabase = require('./supabase');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -158,8 +165,20 @@ app.post('/api/admin/import-catalog', requireAdmin, (req, res) => {
   res.status(400).json({ success: false, error: 'Nenhum catálogo encontrado.' });
 });
 
+/* ---------------- DIAGNÓSTICO SUPABASE ---------------- */
+// EXIGE auth admin: expõe apenas estado de conexão, nunca chaves.
+app.get('/api/admin/supabase-health', requireAdmin, async (req, res) => {
+  try {
+    const diag = await supabase.diagnose();
+    res.json({ success: true, data: diag });
+  } catch (err) {
+    res.json({ success: false, error: err.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`[PODPAHH Server] Rodando em http://localhost:${PORT}`);
   console.log(`[PODPAHH Admin] Painel: http://localhost:${PORT}/pages/admin.html`);
   console.log('[PODPAHH Admin] Login admin protegido ativo.');
+  console.log('[PODPAHH Supabase] Client helpers carregados:', !!(supabase && supabase.createServerClient));
 });
