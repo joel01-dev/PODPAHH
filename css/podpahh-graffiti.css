@@ -1,0 +1,250 @@
+/* ================================================================
+   PODPAHH — Graffiti / Paint Drip Background Effects
+   Gotas de tinta + manchas de spray paint + pixação
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* --- Paint Drip SVG overlay (top of page) --- */
+.pod-drips {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.7;
+}
+
+.pod-drips svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+}
+
+/* --- Paint Splatter spots scattered across the page --- */
+.pod-splatter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.pod-splatter-dot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.08;
+}
+
+/* --- Spray paint texture overlay --- */
+.pod-spray-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    radial-gradient(ellipse 1px 1px at 20% 30%, rgba(45,122,255,0.15) 0%, transparent 100%),
+    radial-gradient(ellipse 2px 1px at 60% 15%, rgba(255,45,135,0.12) 0%, transparent 100%),
+    radial-gradient(ellipse 1px 2px at 80% 70%, rgba(139,92,246,0.1) 0%, transparent 100%),
+    radial-gradient(ellipse 1.5px 1.5px at 40% 80%, rgba(45,122,255,0.08) 0%, transparent 100%),
+    radial-gradient(ellipse 1px 1px at 10% 60%, rgba(255,45,135,0.1) 0%, transparent 100%),
+    radial-gradient(ellipse 2px 2px at 90% 40%, rgba(139,92,246,0.07) 0%, transparent 100%);
+  background-size: 300px 300px;
+  mix-blend-mode: screen;
+}
+
+/* --- Drip trails falling down --- */
+.pod-drip-trail {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(180deg, var(--pod-blue) 0%, transparent 100%);
+  border-radius: 0 0 2px 2px;
+  opacity: 0.12;
+  animation: dripFall 8s ease-in infinite;
+}
+
+.pod-drip-trail.pink {
+  background: linear-gradient(180deg, var(--pod-pink) 0%, transparent 100%);
+}
+
+.pod-drip-trail.purple {
+  background: linear-gradient(180deg, var(--pod-purple) 0%, transparent 100%);
+}
+
+@keyframes dripFall {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 0.15; }
+  90% { opacity: 0.08; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* --- Paint blob at section boundaries --- */
+.pod-section-drip {
+  position: relative;
+}
+
+.pod-section-drip::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 5%;
+  width: 90%;
+  height: 24px;
+  background:
+    radial-gradient(ellipse 40px 12px at 10% 50%, rgba(45,122,255,0.15) 0%, transparent 100%),
+    radial-gradient(ellipse 30px 10px at 30% 50%, rgba(255,45,135,0.12) 0%, transparent 100%),
+    radial-gradient(ellipse 50px 14px at 55% 50%, rgba(139,92,246,0.1) 0%, transparent 100%),
+    radial-gradient(ellipse 35px 11px at 80% 50%, rgba(45,122,255,0.13) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Graffiti tag text (subtle watermark) --- */
+.pod-graffiti-tag {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  font-family: 'Permanent Marker', 'Impact', sans-serif;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.025;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.pod-graffiti-tag.tag-1 {
+  top: 25%;
+  left: -5%;
+  font-size: 8rem;
+  color: var(--pod-blue);
+  transform: rotate(-20deg);
+}
+
+.pod-graffiti-tag.tag-2 {
+  top: 55%;
+  right: -8%;
+  font-size: 6rem;
+  color: var(--pod-pink);
+  transform: rotate(12deg);
+}
+
+.pod-graffiti-tag.tag-3 {
+  top: 80%;
+  left: 10%;
+  font-size: 5rem;
+  color: var(--pod-purple);
+  transform: rotate(-8deg);
+}
+
+/* --- Paint drip hanging from top edge --- */
+.pod-edge-drips {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 999;
+  overflow: visible;
+}
+
+.pod-edge-drip {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  border-radius: 0 0 3px 3px;
+  opacity: 0.6;
+  animation: edgeDrip 6s ease-in-out infinite;
+}
+
+.pod-edge-drip.blue {
+  background: linear-gradient(180deg, var(--pod-blue) 0%, rgba(45,122,255,0.3) 60%, transparent 100%);
+}
+
+.pod-edge-drip.pink {
+  background: linear-gradient(180deg, var(--pod-pink) 0%, rgba(255,45,135,0.3) 60%, transparent 100%);
+}
+
+.pod-edge-drip.purple {
+  background: linear-gradient(180deg, var(--pod-purple) 0%, rgba(139,92,246,0.3) 60%, transparent 100%);
+}
+
+.pod-edge-drip:nth-child(2) { animation-delay: 0.8s; animation-duration: 7s; }
+.pod-edge-drip:nth-child(3) { animation-delay: 1.5s; animation-duration: 5.5s; }
+.pod-edge-drip:nth-child(4) { animation-delay: 2.2s; animation-duration: 8s; }
+.pod-edge-drip:nth-child(5) { animation-delay: 3s; animation-duration: 6.5s; }
+.pod-edge-drip:nth-child(6) { animation-delay: 0.5s; animation-duration: 7.5s; }
+.pod-edge-drip:nth-child(7) { animation-delay: 1.8s; animation-duration: 6s; }
+.pod-edge-drip:nth-child(8) { animation-delay: 2.8s; animation-duration: 5s; }
+.pod-edge-drip:nth-child(9) { animation-delay: 3.5s; animation-duration: 8.5s; }
+.pod-edge-drip:nth-child(10) { animation-delay: 1s; animation-duration: 7s; }
+
+@keyframes edgeDrip {
+  0% { height: 0; opacity: 0; }
+  20% { opacity: 0.5; }
+  60% { height: 50px; opacity: 0.35; }
+  80% { height: 55px; opacity: 0.15; }
+  100% { height: 60px; opacity: 0; }
+}
+
+/* --- Subtle noise grain overlay for graffiti feel --- */
+.pod-grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* --- Ensure content sits above the graffiti layers --- */
+.site-header,
+.site-content,
+.site-footer,
+.mobile-bottom-nav,
+#cartPanel,
+#cartOverlay {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Drip blob shapes (CSS-only paint drips) --- */
+.pod-paint-blob {
+  position: absolute;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  filter: blur(1px);
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* --- Responsive adjustments --- */
+@media (max-width: 768px) {
+  .pod-graffiti-tag.tag-1 { font-size: 4rem; }
+  .pod-graffiti-tag.tag-2 { font-size: 3rem; }
+  .pod-graffiti-tag.tag-3 { font-size: 2.5rem; }
+  .pod-edge-drip { width: 3px; }
+  .pod-drips { opacity: 0.5; }
+}
+
+@media (max-width: 480px) {
+  .pod-graffiti-tag { display: none; }
+  .pod-drips { opacity: 0.35; }
+}
